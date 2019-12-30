@@ -1,4 +1,5 @@
-
+import json
+import config
 inFilePath = "F:\\beijing\多级代理\haproxy.cfg"
 outFilePath = "F:\\beijing\多级代理\haproxy-text.cfg"
 
@@ -36,6 +37,7 @@ def writeCfg(filePath,cfgLines,config):
     haProxyCfg.write(haProxyCfgStr)
     haProxyCfg.close()
 
+
 def manageCfg(bindIp,vpsIp,vpsPort):
     config  = {}
     config["bind"] = bindIp
@@ -45,5 +47,35 @@ def manageCfg(bindIp,vpsIp,vpsPort):
     cfgLines = readCfg(inFilePath)
     writeCfg(outFilePath,cfgLines,config)
 
+
+def ipJsonMess():
+    filePath = config.FilePath+"/commonMess/"
+    messJsonFile = open(filePath+"IpJson.json","w")
+    ipfile = open(filePath+"proxy.txt","r",encoding='UTF-8')
+    ipMess = ipfile.readlines()
+    type = "in"
+    ipJson = {}
+    for line in ipMess:
+        if "china" in line:
+            type = "in"
+            continue
+        if "overseas" in line:
+            type = "out"
+            continue
+        lines = line.split(" ")
+        ssh = {}
+        ssh["type"] = type
+        ssh["usr"] = lines[1].strip()
+        ssh["pwd"] = lines[2].strip()
+        ssh["bindport"] = lines[3].strip()
+        ipJson[lines[0].strip()] = ssh
+    jsonStr = json.dumps(ipJson)
+    messJsonFile.write(jsonStr)
+    messJsonFile.close()
+    ipfile.close()
+
+
+
 if __name__ == '__main__':
-    manageCfg("1234","127.3.1.1","888")
+    #manageCfg("1234","127.3.1.1","888")
+    ipJsonMess()

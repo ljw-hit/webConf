@@ -1,0 +1,85 @@
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <meta name="theme-color" content="#fafafa">
+  <script>
+    window.ip = {}
+    window.link = []
+  </script>
+  <script src="{% static 'js/webcfg.js' %}"></script>
+</head>
+
+<body>
+  <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+  <!-- Add your site or application content here -->
+  <p>WEBCONF</p>
+  <table  class="table">
+                <thead>
+                    <tr>
+                        <th>选择代理路径(按顺序)</th>
+                        <th>服务器类型</th>
+                        <th>IP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+  </table>
+  <script>
+
+    function choiceIp(){
+          $.ajax({
+        type: "GET",
+        url: "./ip", //后台处理函数的url
+
+        success: function (result) { //获取后台处理后传过来的可选择服务器ip
+            ip = result.data;
+            console.log(ip)
+            for(var k in ip){
+            var html = '';
+            html += '<tr class="active">';
+            html += '<td><input name="ip" type="checkbox" onclick ="addLink(this)" value ='+k+' check = "unchecked"/></td>'
+            html += '<td><input type="text" value='+ip[k]+'></td>';
+            html += '<td><input type="text" value='+ k + '></td>';
+            html += '<td>';
+            html += '</tr>';
+            var html = $(html)
+            $('tbody').append(html);
+         }
+        },
+    });
+
+    }
+    choiceIp()
+  </script>
+  <div>
+    <button type="button" onclick="startProxy()">开始代理</button>
+  </div>
+  <script src="{% static 'js/vendor/modernizr-3.8.0.min.js' %}"></script>
+
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
+  <script src="{% static 'js/plugins.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
+</html>

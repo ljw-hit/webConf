@@ -13,10 +13,10 @@ def readCfg(filePath):
 
 def writeCfg(FilePath,cfgJson,ip):
     outCfgFile = open(FilePath,"w")
-    bindIp = 0
+    bindPort = 0
     for dic in cfgJson['configs']:
         if ip in dic['server']:
-            bindIp = dic['server_port']
+            bindPort = dic['server_port']
             cfgJson['configs'] = [dic]
             break
     else:
@@ -24,7 +24,7 @@ def writeCfg(FilePath,cfgJson,ip):
     cfgStr = json.dumps(cfgJson)
     outCfgFile.write(cfgStr)
     outCfgFile.close()
-    return bindIp
+    return bindPort
 
 
 def manageCfg(ip):

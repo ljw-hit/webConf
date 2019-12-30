@@ -13,11 +13,10 @@ def reStartHaproxy(SSH):
     client.connect(host, port, username, password)
     try:
         stdin, stdout, stderr = client.exec_command(cmd,timeout=1000)
-        result = stdout.readlines().decode('utf-8')
+        result = stdout.read().decode('utf-8')
         print(result)
-        print(stderr.read())
-        print(stdin.read())
-    except :
+    except Exception as e:
+        print(e)
         print("重启Haproxy失败")
 
     client.close()
