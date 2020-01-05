@@ -14,7 +14,9 @@ def reStartHaproxy(SSH):
     try:
         stdin, stdout, stderr = client.exec_command(cmd,timeout=1000)
         result = stdout.read().decode('utf-8')
+        err = stderr.read().decode('utf-8')
         print(result)
+        print(err)
     except Exception as e:
         print(e)
         print("重启Haproxy失败")

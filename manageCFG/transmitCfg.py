@@ -1,8 +1,8 @@
 import paramiko
 from scp import SCPClient
-
+from config import *
 remotePath = "/etc/haproxy/haproxy.cfg"
-filePath = "F:\\beijing\多级代理\haproxy-text.cfg"
+filePath = FilePath+"\commonMess\haproxy-text.cfg"
 def uploadCfg(filePath,remotePath,SSH):
     host = SSH["host"]
     port = SSH["port"]
@@ -10,6 +10,7 @@ def uploadCfg(filePath,remotePath,SSH):
     password = SSH["password"]
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy)
+    print(SSH)
     ssh_client.connect(host, port, username, password)
     scpclient = SCPClient(ssh_client.get_transport(), socket_timeout=15.0)
 

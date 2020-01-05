@@ -10,12 +10,19 @@ def getIndex(request):
 def ipMess(request):
     result = {"data":getIp.ipData()}
     return JsonResponse(result)
+
 def startproxy(request):
-    linkStr = request.GET.get("Data")
-    links = linkStr.split(",")
-    switch.choiceLink(links)
-    result = {}
-    result["data"] = "s"
+    links = request.GET.get("Data")
+    print(links)
+    links = links.split(",")
+    linkMess = switch.choiceLink(links)
+    result = {"data":linkMess}
+    return  JsonResponse(result)
+
+def delayTime(request):
+    links = request.GET.get("Data")
+    #print(links)
+    links = links.split(",")
+    linkMess = switch.delay(links)
+    result = {"data": linkMess}
     return JsonResponse(result)
-
-

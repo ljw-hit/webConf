@@ -7,6 +7,10 @@ function addLink(checkbox){
    link.pop(checkbox.value)
   }
 }
+function webSpeed(){
+         var element = window.document.getElementById("sp");
+          element.innerHTML=parseInt((Math.random()+1)*100)+"KB/s"
+}
 
 
 function startProxy(){
@@ -19,7 +23,30 @@ function startProxy(){
 //                           },
                     success : function(res){
                         // 请求成功
-                        console.log(res);
+                        console.log("")
+                        console.log(res.data);
+                        linkmess = res.data
+                        var element = window.document.getElementById("lm");
+                        element.innerHTML=linkmess;
+                    }
+    });
+}
+
+
+function getdelay(){
+    console.log(link)
+    $.ajax({
+                    type: 'GET',
+                    url: './delay/?Data='+link,
+//                    data : {
+//                             'Data' : link
+//                           },
+                    success : function(res){
+                        // 请求成功
+                        console.log(res.data);
+                        linkmess = res.data
+                        var element = window.document.getElementById("dt");
+                        element.innerHTML=linkmess;
                     }
     });
 }

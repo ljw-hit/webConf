@@ -28,10 +28,17 @@ def ipSSH(ip):
         SSH["password"] = ipJson[ip]['pwd']
     return SSH
 
+def ipCaEnc(ip):
+    ipJson = ipSshDic()
+    ca = ipJson[ip]['ca']
+    enc = ipJson[ip]['enc']
+    return ca,enc
+
+
 def ipBindPort(ip):
     ipJson = ipSshDic()
-    bindPort = 10000
-    if ipJson[ip]!=None and ipJson[ip]["bindport"]!=-1:
+    bindPort = "11000"
+    if ipJson[ip]!=None and ipJson[ip]["bindport"]!="-1":
         bindPort = ipJson[ip]["bindport"]
     return bindPort
 

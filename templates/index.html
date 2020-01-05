@@ -11,11 +11,13 @@
 
   <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <meta name="theme-color" content="#fafafa">
   <script>
     window.ip = {}
     window.link = []
+    window.linkmess = ""
   </script>
   <script src="{% static 'js/webcfg.js' %}"></script>
 </head>
@@ -26,13 +28,14 @@
   <![endif]-->
 
   <!-- Add your site or application content here -->
-  <p>WEBCONF</p>
+  <p>哈工大网络安全实验室</p>
   <table  class="table">
                 <thead>
                     <tr>
                         <th>选择代理路径(按顺序)</th>
                         <th>服务器类型</th>
                         <th>IP</th>
+                        <th>状态</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,6 +57,7 @@
             html += '<td><input name="ip" type="checkbox" onclick ="addLink(this)" value ='+k+' check = "unchecked"/></td>'
             html += '<td><input type="text" value='+ip[k]+'></td>';
             html += '<td><input type="text" value='+ k + '></td>';
+            html += '<td><input type="text" value="连通"></td>';
             html += '<td>';
             html += '</tr>';
             var html = $(html)
@@ -65,8 +69,25 @@
     }
     choiceIp()
   </script>
+    <div>
+    <button type="button" onclick="">添加节点</button>
+  </div>
   <div>
     <button type="button" onclick="startProxy()">开始代理</button>
+  </div>
+  <div class="four-text">
+								<h3>linkMessage</h3>
+								<h4 id="lm"></h4>
+                                 <h4 id="dt"></h4>
+                                <h4 id ="sp"></h4><!-- 这里传变量-->
+  </div>
+  <div>
+       <button type="button" onclick="getdelay()">查看延时</button>
+       <button type="button" onclick="webSpeed()">检测链路速度</button>
+  </div>
+    <div>
+    <button type="button" onclick="">正向代理</button>
+        <button type="button" onclick="">反向代理</button>
   </div>
   <script src="{% static 'js/vendor/modernizr-3.8.0.min.js' %}"></script>
 
